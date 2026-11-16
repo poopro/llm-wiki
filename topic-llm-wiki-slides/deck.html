@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LLM Wiki：會自己長大的知識庫</title>
+<style>
+  :root { --bg:#0f172a; --card:#1e293b; --ink:#e2e8f0; --dim:#94a3b8; --accent:#fbbf24; --link:#818cf8; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { height:100%; }
+  body { background:var(--bg); color:var(--ink); font-family:"Microsoft JhengHei",system-ui,-apple-system,sans-serif; overflow:hidden; }
+  .slide { position:absolute; inset:0; display:none; flex-direction:column; justify-content:center;
+           padding:7vh 8vw 11vh; }
+  .slide.active { display:flex; }
+  .slide h2 { font-size:clamp(26px,4.6vh,44px); color:var(--accent); margin-bottom:3.5vh; border-left:10px solid var(--accent); padding-left:18px; }
+  .slide ul { list-style:none; }
+  .slide li { font-size:clamp(16px,3vh,26px); line-height:1.55; margin-bottom:1.6vh; padding-left:26px; position:relative; }
+  .slide li::before { content:"▸"; position:absolute; left:0; color:var(--link); }
+  .slide .hl { background:rgba(251,191,36,.12); border:1px solid var(--accent); border-radius:10px;
+               padding:1.6vh 2vw; font-size:clamp(17px,3.2vh,28px); margin-top:2vh; display:inline-block; }
+  .slide table { border-collapse:collapse; font-size:clamp(13px,2.5vh,21px); width:100%; }
+  .slide th,.slide td { border:1px solid #334155; padding:1vh 1vw; text-align:left; }
+  .slide th { background:var(--card); color:var(--accent); }
+  .slide .cards { display:flex; gap:1.5vw; flex-wrap:wrap; }
+  .slide .cards > div { flex:1 1 40%; background:var(--card); border-radius:12px; padding:2vh 1.4vw; }
+  .slide .cards b { color:var(--link); display:block; margin-bottom:1vh; font-size:clamp(15px,2.8vh,23px); }
+  .slide .cards small, .slide small { color:var(--dim); font-size:clamp(12px,2vh,17px); line-height:1.5; display:block; }
+  .slide .flow { font-size:clamp(15px,2.9vh,25px); line-height:1.9; }
+  .slide .flow span { background:var(--card); border-radius:8px; padding:.6vh .8vw; display:inline-block; margin:.4vh .15vw; }
+  .slide .flow .arr { color:var(--accent); background:none; }
+  .src { position:absolute; bottom:5.5vh; left:8vw; right:8vw; color:var(--dim); font-size:clamp(11px,1.8vh,15px);
+         border-top:1px solid #1e293b; padding-top:1.2vh; }
+  .cover h1 { font-size:clamp(40px,9vh,84px); color:var(--ink); margin-bottom:2vh; }
+  .cover .sub { font-size:clamp(18px,3.4vh,30px); color:var(--accent); margin-bottom:4vh; }
+  #counter { position:fixed; right:2vw; bottom:2vh; color:var(--dim); font-size:15px; z-index:9; }
+  #bar { position:fixed; top:0; left:0; height:4px; background:var(--accent); width:0; z-index:9; transition:width .25s; }
+</style>
+</head>
+<body>
+<div id="bar"></div>
+
+<section class="slide cover active" data-src="wiki/overview.md">
+  <h1>LLM Wiki</h1>
+  <div class="sub">會自己長大的知識庫：讓 AI 把你讀過的資料「編譯」成互相連結的 wiki</div>
+  <small>教學簡報 · 內容全部來自本 repo 的 LLM Wiki（Karpathy 模式）<br>NYCU 114481030 陳宏威 · TAICA 生成式AI 第十週</small>
+  <div class="src">來源：wiki/overview.md</div>
+</section>
+
+<section class="slide" data-src="wiki/concept-compilation.md,wiki/comparison-vs-rag.md">
+  <h2>痛點：AI 每次都從頭找</h2>
+  <ul>
+    <li>上傳一堆檔案，查詢時才撈相關片段、現場拼答案</li>
+    <li>LLM 每次都「從頭重新發現知識」，沒有累積</li>
+    <li>需要綜合五份文件的問題：每次都要重新找、重新拼</li>
+    <li>NotebookLM、ChatGPT 檔案上傳都屬於這類（RAG）</li>
+  </ul>
+  <div class="hl">關鍵句：沒有東西被累積。</div>
+  <div class="src">來源：wiki/concept-compilation.md、wiki/comparison-vs-rag.md</div>
+</section>
+
+<section class="slide" data-src="wiki/concept-compilation.md">
+  <h2>核心觀念：編譯一次，持續維護</h2>
+  <ul>
+    <li>新資料進來：立刻讀完、萃取、編入現有 wiki</li>
+    <li>交叉引用已建好、矛盾已標注、綜合已反映讀過的一切</li>
+    <li>wiki 是持久、複利（compounding）的資產</li>
+  </ul>
+  <div class="hl">分工：人選來源、問好問題；LLM 做摘要、歸檔、記帳。</div>
+  <div class="src">來源：wiki/concept-compilation.md</div>
+</section>
+
+<section class="slide" data-src="wiki/concept-three-layers.md">
+  <h2>三層架構</h2>
+  <div class="cards">
+    <div><b>raw/　原始來源</b><small>不可修改，是 source of truth；Agent 只讀不寫</small></div>
+    <div><b>wiki/　知識頁</b><small>LLM 全權生成與維護：建頁、更新、維護交叉引用</small></div>
+    <div><b>schema　AGENTS.md</b><small>規範結構、慣例與 ingest/query/lint 工作流；人與 Agent 共同演化</small></div>
+  </div>
+  <div class="hl">整個 wiki 就是一個 git repo——版本歷史是現成的。</div>
+  <div class="src">來源：wiki/concept-three-layers.md</div>
+</section>
+
+<section class="slide" data-src="wiki/concept-operations.md">
+  <h2>三個操作</h2>
+  <div class="cards">
+    <div><b>Ingest　編入</b><small>新來源讀完、萃取、編入相關頁面</small></div>
+    <div><b>Query　查詢</b><small>先讀 index 找頁面，答案帶出處</small></div>
+    <div><b>Lint　健檢</b><small>定期檢查矛盾、孤兒頁、斷連結</small></div>
+  </div>
+  <div class="src">來源：wiki/concept-operations.md</div>
+</section>
+
+<section class="slide" data-src="wiki/concept-operations.md,wiki/source-01-karpathy.md">
+  <h2>Ingest：一篇資料進來會發生什麼</h2>
+  <div class="flow"><span>讀來源</span><span class="arr">→</span><span>與你討論重點</span><span class="arr">→</span><span>寫摘要頁</span><span class="arr">→</span><span>更新相關頁</span><span class="arr">→</span><span>更新 index、記 log</span></div>
+  <ul>
+    <li>一份來源可能碰 10–15 個 wiki 頁</li>
+    <li>Karpathy 偏好一次一篇、邊做邊檢查</li>
+  </ul>
+  <div class="src">來源：wiki/concept-operations.md、wiki/source-01-karpathy.md</div>
+</section>
+
+<section class="slide" data-src="wiki/concept-operations.md,wiki/concept-index-log.md,wiki/entity-mindbase.md">
+  <h2>Query：回答要帶出處</h2>
+  <ul>
+    <li>先讀 index.md 找相關頁，再深入內容</li>
+    <li>好答案回寫進 wiki，不要消失在聊天紀錄裡</li>
+    <li>MindBase：記錄「讀了哪幾頁 vs 引用了哪幾頁」——該用而沒用的頁，事後 grep 得到</li>
+  </ul>
+  <div class="src">來源：wiki/concept-operations.md、wiki/concept-index-log.md、wiki/entity-mindbase.md</div>
+</section>
+
+<section class="slide" data-src="wiki/concept-operations.md,wiki/entity-mindbase.md,wiki/synthesis-failures.md">
+  <h2>Lint：幫 wiki 健康檢查</h2>
+  <ul>
+    <li>程式檢查：斷連結、斷引用、近重複頁——不經模型判斷，沒有誤報</li>
+    <li>語意檢查：矛盾、過時主張、缺少的頁面</li>
+  </ul>
+  <div class="hl">社群口訣：Extend, don't create——擴充既有頁，不要再建一頁。</div>
+  <div class="src">來源：wiki/concept-operations.md、wiki/entity-mindbase.md、wiki/synthesis-failures.md</div>
+</section>
+
+<section class="slide" data-src="wiki/concept-index-log.md">
+  <h2>index.md 與 log.md</h2>
+  <ul>
+    <li>index.md：每頁一句話摘要，每次 ingest 就更新；查詢的入口</li>
+    <li>log.md：append-only；固定前綴「## [日期] 操作 | 標題」就能用 grep 解析</li>
+  </ul>
+  <div class="hl">百頁規模：光靠 index 就夠，不需要向量資料庫。</div>
+  <div class="src">來源：wiki/concept-index-log.md</div>
+</section>
+
+<section class="slide" data-src="wiki/comparison-vs-rag.md">
+  <h2>LLM Wiki vs RAG</h2>
+  <table>
+    <tr><th>面向</th><th>傳統 RAG</th><th>LLM Wiki</th></tr>
+    <tr><td>整理時機</td><td>查詢時現場拼</td><td>ingest 時就整理</td></tr>
+    <tr><td>累積性</td><td>沒有</td><td>持久、複利</td></tr>
+    <tr><td>交叉引用</td><td>無</td><td>已建好</td></tr>
+    <tr><td>矛盾</td><td>片段都撈得到</td><td>維護時已標注</td></tr>
+    <tr><td>基礎建設</td><td>embedding、向量索引</td><td>index.md 就夠</td></tr>
+    <tr><td>成本</td><td>每次查詢重付</td><td>維護一次性</td></tr>
+  </table>
+  <div class="src">來源：wiki/comparison-vs-rag.md</div>
+</section>
+
+<section class="slide" data-src="wiki/entity-student-llm-wiki.md,wiki/entity-mindbase.md,wiki/entity-crow.md,wiki/entity-liangdabiao.md">
+  <h2>真實案例與數據</h2>
+  <div class="cards">
+    <div><b>Student LLM Wiki</b><small>課程簡報 → wiki：Feynman 複習、弱點追蹤</small></div>
+    <div><b>MindBase</b><small>lint 程式化：斷連結、斷引用由程式計算，沒有誤報</small></div>
+    <div><b>CROW llm-wiki-v2</b><small>ingest 的 token 有 72% 花在「決策」；改用小型分類器後 62%→89%、時間減半</small></div>
+    <div><b>liangdabiao/llm-wiki</b><small>多來源 ingest，用 Quartz 發布成靜態網站</small></div>
+  </div>
+  <div class="src">來源：wiki/entity-student-llm-wiki.md、wiki/entity-mindbase.md、wiki/entity-crow.md、wiki/entity-liangdabiao.md</div>
+</section>
+
+<section class="slide" data-src="wiki/synthesis-failures.md,wiki/overview.md,wiki/source-06-awesome.md">
+  <h2>總結</h2>
+  <ul>
+    <li>近重複頁 → Extend, don't create</li>
+    <li>斷連結、斷引用 → 交給程式 lint</li>
+    <li>資料矛盾 → 並列標注，不靜默覆蓋</li>
+  </ul>
+  <div class="hl">一句話帶走：知識要編譯一次、持續維護，而不是每次重新推導。</div>
+  <small>gist 發布後數個月，Awesome LLM Wiki 生態清單已經成型。</small>
+  <div class="src">來源：wiki/synthesis-failures.md、wiki/overview.md、wiki/source-06-awesome.md</div>
+</section>
+
+<div id="counter">1 / 12</div>
+<script>
+  const slides=[...document.querySelectorAll(".slide")];let i=0;
+  function show(n){i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle("active",k===i));
+    document.getElementById("counter").textContent=(i+1)+" / "+slides.length;
+    document.getElementById("bar").style.width=((i+1)/slides.length*100)+"%";}
+  addEventListener("keydown",e=>{
+    if(["ArrowRight","PageDown"," "].includes(e.key)){e.preventDefault();show(i+1);}
+    if(["ArrowLeft","PageUp"].includes(e.key)){e.preventDefault();show(i-1);}
+    if(e.key==="Home")show(0); if(e.key==="End")show(slides.length-1);});
+  addEventListener("click",e=>{ if(e.clientX>innerWidth/2)show(i+1); else show(i-1); });
+  show(0);
+</script>
+</body>
+</html>
