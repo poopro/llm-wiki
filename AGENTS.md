@@ -1,6 +1,6 @@
 # AGENTS.md — LLM Wiki 維護手冊
 
-這個資料夾是一個依 Karpathy「LLM Wiki」模式運作的个人知識庫（schema）。
+這個資料夾是一個依 Karpathy「LLM Wiki」模式運作的個人知識庫（schema）。
 任何 LLM Agent 在此資料夾工作時，必須遵守本手冊。
 
 - **主題**：LLM Wiki 模式本身（核心觀念、操作、與 RAG 的差異、實作案例）
@@ -12,11 +12,13 @@
 ```
 llm-wiki/
 ├── AGENTS.md        ← 本手冊（schema）：Agent 唯一允許修改的規則檔
+├── notes/           ← 需求訪談紀錄（先討論、後生成）
 ├── raw/             ← 原始來源，不可修改（Agent 只讀不寫）
 ├── wiki/            ← Agent 生成與維護的頁面（Agent 全權負責）
 │   ├── index.md     ← 目錄：所有頁面 + 一句話摘要
 │   └── log.md       ← 日誌：append-only，記錄每次 ingest / query / lint
-├── scripts/         ← 檢查腳本（wiki_lint.py）
+├── scripts/         ← wiki_lint.py（lint）、build_site.py（網站生成）、deck_check.py（簡報檢查）
+├── site/            ← 生成物：wiki 每頁的 HTML 版（build_site.py 產生，不要手改）
 └── topic-llm-wiki-slides/  ← 下游產出：教學 HTML 簡報的工作目錄
 ```
 
