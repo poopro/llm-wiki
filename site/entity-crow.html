@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>實體：CROW llm-wiki-v2（ingest 決策成本研究） — LLM Wiki</title>
+<style>
+  :root { --bg:#0f172a; --card:#1e293b; --ink:#e2e8f0; --dim:#94a3b8; --accent:#fbbf24; --link:#818cf8; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); font-family:"Microsoft JhengHei",system-ui,-apple-system,sans-serif; line-height:1.8; }
+  .wrap { max-width:880px; margin:0 auto; padding:24px 20px 60px; }
+  nav { display:flex; gap:18px; align-items:center; padding:14px 0; border-bottom:1px solid var(--card); margin-bottom:28px; flex-wrap:wrap; }
+  nav a { color:var(--dim); text-decoration:none; font-size:15px; }
+  nav a:hover { color:var(--accent); }
+  nav .brand { color:var(--accent); font-weight:bold; font-size:17px; margin-right:auto; }
+  h1 { color:var(--accent); font-size:30px; margin-bottom:18px; }
+  h2 { color:var(--accent); font-size:22px; margin:26px 0 10px; }
+  p { margin-bottom:14px; }
+  ul { margin:0 0 14px 22px; }
+  li { margin-bottom:6px; }
+  a { color:var(--link); }
+  table { border-collapse:collapse; width:100%; margin-bottom:16px; font-size:15px; }
+  th,td { border:1px solid #334155; padding:8px 12px; text-align:left; }
+  th { background:var(--card); color:var(--accent); }
+  code { background:var(--card); padding:2px 6px; border-radius:5px; font-size:14px; }
+  pre code { display:block; padding:14px; overflow-x:auto; }
+  .meta { color:var(--dim); font-size:14px; margin-bottom:22px; }
+  .card { background:var(--card); border-radius:12px; padding:16px 20px; margin-bottom:12px; }
+  .card b a { color:var(--ink); text-decoration:none; font-size:16px; }
+  .card b a:hover { color:var(--accent); }
+  .card small { color:var(--dim); display:block; margin-top:4px; }
+  .hero { text-align:center; padding:30px 0 10px; }
+  .hero h1 { font-size:34px; }
+  .hero .sub { color:var(--dim); margin-bottom:26px; }
+  .btn { display:inline-block; background:var(--accent); color:#0f172a; font-weight:bold; text-decoration:none;
+         padding:10px 22px; border-radius:10px; margin:0 6px 10px; }
+  .btn.ghost { background:var(--card); color:var(--ink); }
+  footer { margin-top:40px; color:var(--dim); font-size:13px; border-top:1px solid var(--card); padding-top:16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><span class="brand">LLM Wiki</span><a href="index.html">目錄</a><a href="log.html">日誌</a><a href="../topic-llm-wiki-slides/deck.html">教學簡報</a><a href="https://github.com/poopro/llm-wiki">GitHub</a></nav>
+<div class="meta">實體 · 更新 2026-11-16 · 來源：<a href="https://github.com/poopro/llm-wiki/blob/main/raw/05-crow-llm-wiki-v2.md">raw/05-crow-llm-wiki-v2.md</a></div>
+<h1>實體：CROW llm-wiki-v2（ingest 決策成本研究）</h1>
+<p>GitHub 專案 <code>crow-hq/llm-wiki-v2</code>（AGPL-3.0，可用 Ollama 本地模型）：針對 ingest 環節做了一次量化研究 <a href="site/entity-karpathy.html">entity-karpathy</a>。</p>
+<p><strong>發現</strong>：ingest 時大多數 LLM 呼叫其實不是在「寫」，而是在「決策」——這份資料歸哪個資料夾？是否與既有筆記同一主題？要不要合併？該連到哪裡？<strong>這些決策佔了約 72% 的 LLM token</strong>。</p>
+<p><strong>對策</strong>：把這些決策交給小型 typed classifier，LLM 只負責產生文字內容。</p>
+<p><strong>結果</strong>（525 份文件的單一語料、單一模型）：正確筆記被送到答案的比例從 62% 提升到 89%，ingest 時間約減半，且每份文件的 token 成本在 wiki 變大時保持平坦。作者自己註明「單一語料、單一模型，只能當作第一個數據點」。</p>
+<p>對本 wiki 的啟示：<strong>結構化、可程式化的檢查與分類，能大幅降低維護成本</strong>——與 <a href="site/entity-mindbase.html">entity-mindbase</a> 的「lint 用程式算、不用模型」互相呼應。來源摘要頁：<a href="site/source-05-crow.html">source-05-crow</a></p>
+<p>出處：raw/05-crow-llm-wiki-v2.md</p>
+<footer>本頁由 <code>wiki/entity-crow.md</code> 自動生成（scripts/build_site.py）· 內容依 AGENTS.md 規則維護</footer>
+</div>
+</body>
+</html>

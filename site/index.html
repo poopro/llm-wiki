@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Index — LLM Wiki（主題：LLM Wiki 模式本身） — LLM Wiki</title>
+<style>
+  :root { --bg:#0f172a; --card:#1e293b; --ink:#e2e8f0; --dim:#94a3b8; --accent:#fbbf24; --link:#818cf8; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); font-family:"Microsoft JhengHei",system-ui,-apple-system,sans-serif; line-height:1.8; }
+  .wrap { max-width:880px; margin:0 auto; padding:24px 20px 60px; }
+  nav { display:flex; gap:18px; align-items:center; padding:14px 0; border-bottom:1px solid var(--card); margin-bottom:28px; flex-wrap:wrap; }
+  nav a { color:var(--dim); text-decoration:none; font-size:15px; }
+  nav a:hover { color:var(--accent); }
+  nav .brand { color:var(--accent); font-weight:bold; font-size:17px; margin-right:auto; }
+  h1 { color:var(--accent); font-size:30px; margin-bottom:18px; }
+  h2 { color:var(--accent); font-size:22px; margin:26px 0 10px; }
+  p { margin-bottom:14px; }
+  ul { margin:0 0 14px 22px; }
+  li { margin-bottom:6px; }
+  a { color:var(--link); }
+  table { border-collapse:collapse; width:100%; margin-bottom:16px; font-size:15px; }
+  th,td { border:1px solid #334155; padding:8px 12px; text-align:left; }
+  th { background:var(--card); color:var(--accent); }
+  code { background:var(--card); padding:2px 6px; border-radius:5px; font-size:14px; }
+  pre code { display:block; padding:14px; overflow-x:auto; }
+  .meta { color:var(--dim); font-size:14px; margin-bottom:22px; }
+  .card { background:var(--card); border-radius:12px; padding:16px 20px; margin-bottom:12px; }
+  .card b a { color:var(--ink); text-decoration:none; font-size:16px; }
+  .card b a:hover { color:var(--accent); }
+  .card small { color:var(--dim); display:block; margin-top:4px; }
+  .hero { text-align:center; padding:30px 0 10px; }
+  .hero h1 { font-size:34px; }
+  .hero .sub { color:var(--dim); margin-bottom:26px; }
+  .btn { display:inline-block; background:var(--accent); color:#0f172a; font-weight:bold; text-decoration:none;
+         padding:10px 22px; border-radius:10px; margin:0 6px 10px; }
+  .btn.ghost { background:var(--card); color:var(--ink); }
+  footer { margin-top:40px; color:var(--dim); font-size:13px; border-top:1px solid var(--card); padding-top:16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><span class="brand">LLM Wiki</span><a href="index.html">目錄</a><a href="log.html">日誌</a><a href="../topic-llm-wiki-slides/deck.html">教學簡報</a><a href="https://github.com/poopro/llm-wiki">GitHub</a></nav>
+<div class="meta">操作日誌 · 更新  · 來源：</div>
+<h1>Index — LLM Wiki（主題：LLM Wiki 模式本身）</h1>
+<blockquote>
+<p>查詢時先讀本頁找相關頁面，再深入內容。每次 ingest 更新。</p>
+</blockquote>
+<h2>綜述</h2>
+<ul>
+<li><a href="site/overview.html">overview</a> — LLM Wiki 是什麼：一句話核心主張 + 全 wiki 導覽</li>
+</ul>
+<h2>概念（concept）</h2>
+<ul>
+<li><a href="site/concept-compilation.html">concept-compilation</a> — 核心觀念：知識編譯一次、持續維護，而非每次查詢重新推導</li>
+<li><a href="site/concept-three-layers.html">concept-three-layers</a> — 三層架構：raw（不可改）/ wiki（LLM 維護）/ schema（手冊）</li>
+<li><a href="site/concept-operations.html">concept-operations</a> — 三個操作：Ingest、Query、Lint 的標準流程</li>
+<li><a href="site/concept-index-log.html">concept-index-log</a> — index.md 與 log.md：百頁規模內不需要向量資料庫</li>
+</ul>
+<h2>比較（comparison）</h2>
+<ul>
+<li><a href="site/comparison-vs-rag.html">comparison-vs-rag</a> — LLM Wiki vs RAG：整理時機、累積性、矛盾處理、成本曲線</li>
+</ul>
+<h2>實體（entity）</h2>
+<ul>
+<li><a href="site/entity-karpathy.html">entity-karpathy</a> — 原典：Karpathy 的 gist，與 Memex（1945）的思想連結</li>
+<li><a href="site/entity-student-llm-wiki.html">entity-student-llm-wiki</a> — 學生課程知識庫：簡報進、wiki 出</li>
+<li><a href="site/entity-mindbase.html">entity-mindbase</a> — MindBase：lint 從 AI 判斷改成程式計算</li>
+<li><a href="site/entity-liangdabiao.html">entity-liangdabiao</a> — 多來源 ingest ＋ Quartz 靜態網站發布</li>
+<li><a href="site/entity-crow.html">entity-crow</a> — CROW：ingest 決策佔 72% token 的量化研究</li>
+</ul>
+<h2>綜合分析（synthesis）</h2>
+<ul>
+<li><a href="site/synthesis-failures.html">synthesis-failures</a> — 七種常見失敗模式與社群對策（近重複、斷連結、靜默覆蓋…）</li>
+</ul>
+<h2>來源摘要（source）</h2>
+<ul>
+<li><a href="site/source-01-karpathy.html">source-01-karpathy</a> — Karpathy gist 原文（2026-04-04）</li>
+<li><a href="site/source-02-student.html">source-02-student</a> — student-llm-wiki（課程情境）</li>
+<li><a href="site/source-03-mindbase.html">source-03-mindbase</a> — mindbase-llm-wiki（lint 程式化）</li>
+<li><a href="site/source-04-liangdabiao.html">source-04-liangdabiao</a> — liangdabiao/llm-wiki（多來源、Quartz）</li>
+<li><a href="site/source-05-crow.html">source-05-crow</a> — crow llm-wiki-v2（決策成本研究）</li>
+<li><a href="site/source-06-awesome.html">source-06-awesome</a> — awesome-llm-wiki（生態清單）</li>
+</ul>
+<footer>本頁由 <code>wiki/index.md</code> 自動生成（scripts/build_site.py）· 內容依 AGENTS.md 規則維護</footer>
+</div>
+</body>
+</html>

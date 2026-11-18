@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>比較：LLM Wiki vs RAG — LLM Wiki</title>
+<style>
+  :root { --bg:#0f172a; --card:#1e293b; --ink:#e2e8f0; --dim:#94a3b8; --accent:#fbbf24; --link:#818cf8; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); font-family:"Microsoft JhengHei",system-ui,-apple-system,sans-serif; line-height:1.8; }
+  .wrap { max-width:880px; margin:0 auto; padding:24px 20px 60px; }
+  nav { display:flex; gap:18px; align-items:center; padding:14px 0; border-bottom:1px solid var(--card); margin-bottom:28px; flex-wrap:wrap; }
+  nav a { color:var(--dim); text-decoration:none; font-size:15px; }
+  nav a:hover { color:var(--accent); }
+  nav .brand { color:var(--accent); font-weight:bold; font-size:17px; margin-right:auto; }
+  h1 { color:var(--accent); font-size:30px; margin-bottom:18px; }
+  h2 { color:var(--accent); font-size:22px; margin:26px 0 10px; }
+  p { margin-bottom:14px; }
+  ul { margin:0 0 14px 22px; }
+  li { margin-bottom:6px; }
+  a { color:var(--link); }
+  table { border-collapse:collapse; width:100%; margin-bottom:16px; font-size:15px; }
+  th,td { border:1px solid #334155; padding:8px 12px; text-align:left; }
+  th { background:var(--card); color:var(--accent); }
+  code { background:var(--card); padding:2px 6px; border-radius:5px; font-size:14px; }
+  pre code { display:block; padding:14px; overflow-x:auto; }
+  .meta { color:var(--dim); font-size:14px; margin-bottom:22px; }
+  .card { background:var(--card); border-radius:12px; padding:16px 20px; margin-bottom:12px; }
+  .card b a { color:var(--ink); text-decoration:none; font-size:16px; }
+  .card b a:hover { color:var(--accent); }
+  .card small { color:var(--dim); display:block; margin-top:4px; }
+  .hero { text-align:center; padding:30px 0 10px; }
+  .hero h1 { font-size:34px; }
+  .hero .sub { color:var(--dim); margin-bottom:26px; }
+  .btn { display:inline-block; background:var(--accent); color:#0f172a; font-weight:bold; text-decoration:none;
+         padding:10px 22px; border-radius:10px; margin:0 6px 10px; }
+  .btn.ghost { background:var(--card); color:var(--ink); }
+  footer { margin-top:40px; color:var(--dim); font-size:13px; border-top:1px solid var(--card); padding-top:16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><span class="brand">LLM Wiki</span><a href="index.html">目錄</a><a href="log.html">日誌</a><a href="../topic-llm-wiki-slides/deck.html">教學簡報</a><a href="https://github.com/poopro/llm-wiki">GitHub</a></nav>
+<div class="meta">比較 · 更新 2026-11-16 · 來源：<a href="https://github.com/poopro/llm-wiki/blob/main/raw/01-karpathy-llm-wiki-gist.md">raw/01-karpathy-llm-wiki-gist.md</a>、<a href="https://github.com/poopro/llm-wiki/blob/main/raw/05-crow-llm-wiki-v2.md">raw/05-crow-llm-wiki-v2.md</a></div>
+<h1>比較：LLM Wiki vs RAG</h1>
+<table>
+<thead>
+<tr>
+<th>面向</th>
+<th>傳統 RAG</th>
+<th>LLM Wiki</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>知識何時被整理</td>
+<td>查詢時現場撈片段、現場拼答案</td>
+<td>ingest 時就讀完、萃取、編入頁面</td>
+</tr>
+<tr>
+<td>累積性</td>
+<td>沒有累積，每次從頭推導</td>
+<td>wiki 是持久、複利的資產 <a href="site/concept-compilation.html">concept-compilation</a></td>
+</tr>
+<tr>
+<td>交叉引用</td>
+<td>沒有；靠 embedding 相似度</td>
+<td>已經建好，頁與頁互連</td>
+</tr>
+<tr>
+<td>矛盾處理</td>
+<td>兩個片段都撈得到，誰對沒人說</td>
+<td>維護時已標注「矛盾與開放問題」<a href="site/synthesis-failures.html">synthesis-failures</a></td>
+</tr>
+<tr>
+<td>基礎建設</td>
+<td>需要 embedding、向量索引</td>
+<td>中小規模只要 index.md 就夠 <a href="site/concept-index-log.html">concept-index-log</a></td>
+</tr>
+<tr>
+<td>成本曲線</td>
+<td>每次查詢都要重新檢索＋拼湊</td>
+<td>維護成本一次性；crow 的研究指出 ingest 的 token 有 72% 花在「決策」而非撰寫，把決策交給小型分類器後 ingest 時間可減半 <a href="site/entity-crow.html">entity-crow</a></td>
+</tr>
+</tbody>
+</table>
+<p>Karpathy 原文對 NotebookLM、ChatGPT 檔案上傳等系統的定位：它們都屬於 RAG 式——「works, but the LLM is rediscovering knowledge from scratch on every question」<a href="site/entity-karpathy.html">entity-karpathy</a>。</p>
+<p>注意：兩者不是敵對關係。Karpathy 也提到，規模更大時可以在 wiki 上加搜尋引擎（如 qmd：BM25/向量混合檢索）；wiki 模式改變的是「知識有沒有被整理過」，不是禁止檢索技術。</p>
+<p>出處：raw/01-karpathy-llm-wiki-gist.md、raw/05-crow-llm-wiki-v2.md</p>
+<footer>本頁由 <code>wiki/comparison-vs-rag.md</code> 自動生成（scripts/build_site.py）· 內容依 AGENTS.md 規則維護</footer>
+</div>
+</body>
+</html>

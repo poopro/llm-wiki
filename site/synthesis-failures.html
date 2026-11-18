@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>綜合分析：常見失敗模式與社群對策 — LLM Wiki</title>
+<style>
+  :root { --bg:#0f172a; --card:#1e293b; --ink:#e2e8f0; --dim:#94a3b8; --accent:#fbbf24; --link:#818cf8; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); font-family:"Microsoft JhengHei",system-ui,-apple-system,sans-serif; line-height:1.8; }
+  .wrap { max-width:880px; margin:0 auto; padding:24px 20px 60px; }
+  nav { display:flex; gap:18px; align-items:center; padding:14px 0; border-bottom:1px solid var(--card); margin-bottom:28px; flex-wrap:wrap; }
+  nav a { color:var(--dim); text-decoration:none; font-size:15px; }
+  nav a:hover { color:var(--accent); }
+  nav .brand { color:var(--accent); font-weight:bold; font-size:17px; margin-right:auto; }
+  h1 { color:var(--accent); font-size:30px; margin-bottom:18px; }
+  h2 { color:var(--accent); font-size:22px; margin:26px 0 10px; }
+  p { margin-bottom:14px; }
+  ul { margin:0 0 14px 22px; }
+  li { margin-bottom:6px; }
+  a { color:var(--link); }
+  table { border-collapse:collapse; width:100%; margin-bottom:16px; font-size:15px; }
+  th,td { border:1px solid #334155; padding:8px 12px; text-align:left; }
+  th { background:var(--card); color:var(--accent); }
+  code { background:var(--card); padding:2px 6px; border-radius:5px; font-size:14px; }
+  pre code { display:block; padding:14px; overflow-x:auto; }
+  .meta { color:var(--dim); font-size:14px; margin-bottom:22px; }
+  .card { background:var(--card); border-radius:12px; padding:16px 20px; margin-bottom:12px; }
+  .card b a { color:var(--ink); text-decoration:none; font-size:16px; }
+  .card b a:hover { color:var(--accent); }
+  .card small { color:var(--dim); display:block; margin-top:4px; }
+  .hero { text-align:center; padding:30px 0 10px; }
+  .hero h1 { font-size:34px; }
+  .hero .sub { color:var(--dim); margin-bottom:26px; }
+  .btn { display:inline-block; background:var(--accent); color:#0f172a; font-weight:bold; text-decoration:none;
+         padding:10px 22px; border-radius:10px; margin:0 6px 10px; }
+  .btn.ghost { background:var(--card); color:var(--ink); }
+  footer { margin-top:40px; color:var(--dim); font-size:13px; border-top:1px solid var(--card); padding-top:16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><span class="brand">LLM Wiki</span><a href="index.html">目錄</a><a href="log.html">日誌</a><a href="../topic-llm-wiki-slides/deck.html">教學簡報</a><a href="https://github.com/poopro/llm-wiki">GitHub</a></nav>
+<div class="meta">綜合分析 · 更新 2026-11-16 · 來源：<a href="https://github.com/poopro/llm-wiki/blob/main/raw/01-karpathy-llm-wiki-gist.md">raw/01-karpathy-llm-wiki-gist.md</a>、<a href="https://github.com/poopro/llm-wiki/blob/main/raw/03-mindbase-llm-wiki.md">raw/03-mindbase-llm-wiki.md</a>、<a href="https://github.com/poopro/llm-wiki/blob/main/raw/05-crow-llm-wiki-v2.md">raw/05-crow-llm-wiki-v2.md</a></div>
+<h1>綜合分析：常見失敗模式與社群對策</h1>
+<p>綜合 gist 原文與三個實作專案的經驗，LLM Wiki 最常見的失敗模式如下 <a href="site/entity-karpathy.html">entity-karpathy</a> <a href="site/entity-mindbase.html">entity-mindbase</a> <a href="site/entity-crow.html">entity-crow</a>：</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>失敗模式</th>
+<th>對策</th>
+<th>來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>近重複頁</strong>：同一概念被建成兩頁，知識分裂</td>
+<td>「Extend, don't create」——建新頁前先查 index、搜尋既有頁；MindBase 在 lint 時程式化偵測近重複</td>
+<td>gist 留言（podcast-wiki）、raw/03</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>斷連結 / 斷引用</strong>：<code>[link](site/link.html)</code> 沒有對應頁、引用的檔案被移走</td>
+<td>在 lint 時用<strong>程式碼</strong>計算，不靠模型判斷，避免誤報</td>
+<td>raw/03</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>靜默覆蓋</strong>：新來源與舊主張矛盾時直接改掉</td>
+<td>矛盾不刪除，集中放在「Disagreements &amp; open questions」區塊並標注雙方來源——podcast-wiki 說這反而是最有趣的章節</td>
+<td>raw/01 留言</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>摘要越接越長</strong>：把新內容 append 到舊摘要後面</td>
+<td>「Rewrite the summary, don't append」——重新改寫，不要堆疊</td>
+<td>raw/01 留言</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>頁面漂移合流</strong>：多頁漸漸變成同一個主題</td>
+<td>定期跑一次「dream pass」合併漂移的頁面</td>
+<td>raw/01 留言</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>ingest 成本高</strong>：token 大量花在分類、合併等「決策」</td>
+<td>把決策交給小型 typed classifier，LLM 只負責寫文字；crow 實測答對率 62%→89%、ingest 時間減半</td>
+<td>raw/05</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>模型沒用該用的頁</strong>：wiki 有資料但回答沒引用</td>
+<td>MindBase 記錄「讀了幾頁 vs 引用幾頁」，讓這種失敗可以被 grep 事後追蹤</td>
+<td>raw/03</td>
+</tr>
+</tbody>
+</table>
+<p>這些對策的共同點：<strong>能程式化檢查的就寫成腳本</strong>（1、2、7），剩下需要語意的才交給 LLM 或人（3、4、5）。本 wiki 的 <code>scripts/wiki_lint.py</code> 即依此原則實作斷連結、孤兒頁、缺出處三項程式檢查。</p>
+<p>出處：raw/01-karpathy-llm-wiki-gist.md、raw/03-mindbase-llm-wiki.md、raw/05-crow-llm-wiki-v2.md</p>
+<footer>本頁由 <code>wiki/synthesis-failures.md</code> 自動生成（scripts/build_site.py）· 內容依 AGENTS.md 規則維護</footer>
+</div>
+</body>
+</html>

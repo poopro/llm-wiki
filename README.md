@@ -4,8 +4,8 @@
 
 ## 成品連結
 
-- 教學 HTML 簡報：<https://poopro.github.io/llm-wiki/>（自動跳轉到簡報）
-- 直接開簡報：<https://poopro.github.io/llm-wiki/topic-llm-wiki-slides/deck.html>
+- 知識庫網站（wiki 18 頁全部上網）：<https://poopro.github.io/llm-wiki/>
+- 教學 HTML 簡報：<https://poopro.github.io/llm-wiki/topic-llm-wiki-slides/deck.html>
 
 ## 這個 repo 是什麼
 
@@ -19,7 +19,9 @@ llm-wiki/
 │   └── log.md             ← 操作日誌（ingest/lint/query 全紀錄）
 ├── scripts/
 │   ├── wiki_lint.py       ← lint 關卡：斷連結、孤兒頁、缺出處、index 未收錄
-│   └── deck_check.py      ← 簡報關卡：頁數、每頁出處、引用頁存在
+│   ├── deck_check.py      ← 簡報關卡：頁數、每頁出處、引用頁存在
+│   └── build_site.py      ← 網站生成：wiki/*.md → site/*.html + 總覽 index.html
+└── site/                  ← 生成物（GitHub Pages 上線中，不要手改）
 └── topic-llm-wiki-slides/ ← 簡報工作目錄：sources / cards / outline / drafts / deck.html / report.md
 ```
 
@@ -28,6 +30,7 @@ llm-wiki/
 ```bash
 python scripts/wiki_lint.py    # wiki 健康檢查
 python scripts/deck_check.py   # 簡報內容檢查
+python scripts/build_site.py   # 重新生成網站（改完 wiki 後跑）
 ```
 
 ## 來源

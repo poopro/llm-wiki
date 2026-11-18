@@ -66,6 +66,14 @@ updated: YYYY-MM-DD
 - 資料不足以支撐某個主張時，寫「來源未涵蓋」，不得用常識硬湊。
 - 修改最多 3 輪仍未通過檢查就停下報告，不要無限迴圈。
 
+## 網站生成（GitHub Pages）
+
+- `python scripts/build_site.py` 把 `wiki/` 的**每一頁**自動渲染成 `site/<slug>.html`，並生成根目錄 `index.html`（總覽目錄）。
+- `index.html` 與 `site/` 全部是**生成物，不要手動編輯**；要改內容就改 wiki 頁後重新生成。
+- `[[slug]]` 會自動轉成站內連結；頁面的 frontmatter（type/updated/sources）會變成頁首 meta 與 raw 來源連結。
+- **新增頁面的完整閉環**：ingest 新頁 → `python scripts/wiki_lint.py` 全過 → `python scripts/build_site.py` → git commit + push → Pages 自動上線，新頁自動出現在目錄。
+- 教學簡報在 `topic-llm-wiki-slides/deck.html`，與網站互不影響，總覽頁有連結。
+
 ## 下游產出：教學 HTML 簡報
 
 工作目錄 `topic-llm-wiki-slides/`，流程與檢查關卡見 `topic-llm-wiki-slides/outline.md` 與 `scripts/deck_check.py`：

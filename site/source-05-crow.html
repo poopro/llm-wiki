@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>來源 05：CROW llm-wiki-v2（決策成本研究） — LLM Wiki</title>
+<style>
+  :root { --bg:#0f172a; --card:#1e293b; --ink:#e2e8f0; --dim:#94a3b8; --accent:#fbbf24; --link:#818cf8; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); font-family:"Microsoft JhengHei",system-ui,-apple-system,sans-serif; line-height:1.8; }
+  .wrap { max-width:880px; margin:0 auto; padding:24px 20px 60px; }
+  nav { display:flex; gap:18px; align-items:center; padding:14px 0; border-bottom:1px solid var(--card); margin-bottom:28px; flex-wrap:wrap; }
+  nav a { color:var(--dim); text-decoration:none; font-size:15px; }
+  nav a:hover { color:var(--accent); }
+  nav .brand { color:var(--accent); font-weight:bold; font-size:17px; margin-right:auto; }
+  h1 { color:var(--accent); font-size:30px; margin-bottom:18px; }
+  h2 { color:var(--accent); font-size:22px; margin:26px 0 10px; }
+  p { margin-bottom:14px; }
+  ul { margin:0 0 14px 22px; }
+  li { margin-bottom:6px; }
+  a { color:var(--link); }
+  table { border-collapse:collapse; width:100%; margin-bottom:16px; font-size:15px; }
+  th,td { border:1px solid #334155; padding:8px 12px; text-align:left; }
+  th { background:var(--card); color:var(--accent); }
+  code { background:var(--card); padding:2px 6px; border-radius:5px; font-size:14px; }
+  pre code { display:block; padding:14px; overflow-x:auto; }
+  .meta { color:var(--dim); font-size:14px; margin-bottom:22px; }
+  .card { background:var(--card); border-radius:12px; padding:16px 20px; margin-bottom:12px; }
+  .card b a { color:var(--ink); text-decoration:none; font-size:16px; }
+  .card b a:hover { color:var(--accent); }
+  .card small { color:var(--dim); display:block; margin-top:4px; }
+  .hero { text-align:center; padding:30px 0 10px; }
+  .hero h1 { font-size:34px; }
+  .hero .sub { color:var(--dim); margin-bottom:26px; }
+  .btn { display:inline-block; background:var(--accent); color:#0f172a; font-weight:bold; text-decoration:none;
+         padding:10px 22px; border-radius:10px; margin:0 6px 10px; }
+  .btn.ghost { background:var(--card); color:var(--ink); }
+  footer { margin-top:40px; color:var(--dim); font-size:13px; border-top:1px solid var(--card); padding-top:16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><span class="brand">LLM Wiki</span><a href="index.html">目錄</a><a href="log.html">日誌</a><a href="../topic-llm-wiki-slides/deck.html">教學簡報</a><a href="https://github.com/poopro/llm-wiki">GitHub</a></nav>
+<div class="meta">來源摘要 · 更新 2026-11-16 · 來源：<a href="https://github.com/poopro/llm-wiki/blob/main/raw/05-crow-llm-wiki-v2.md">raw/05-crow-llm-wiki-v2.md</a></div>
+<h1>來源 05：CROW llm-wiki-v2（決策成本研究）</h1>
+<ul>
+<li><strong>檔案</strong>：<code>raw/05-crow-llm-wiki-v2.md</code></li>
+<li><strong>來源</strong>：<a href="https://github.com/crow-hq/llm-wiki-v2">https://github.com/crow-hq/llm-wiki-v2</a>（論文 DOI 10.5281/zenodo.22898752）</li>
+<li><strong>取回</strong>：2026-11-16</li>
+</ul>
+<p>ingest 的 token 有 72% 花在決策；改用 typed classifier 後 62%→89%、時間減半。詳見 <a href="site/entity-crow.html">entity-crow</a>、<a href="site/comparison-vs-rag.html">comparison-vs-rag</a>。</p>
+<p>出處：raw/05-crow-llm-wiki-v2.md</p>
+<footer>本頁由 <code>wiki/source-05-crow.md</code> 自動生成（scripts/build_site.py）· 內容依 AGENTS.md 規則維護</footer>
+</div>
+</body>
+</html>

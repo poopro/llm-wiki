@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三層架構：raw / wiki / schema — LLM Wiki</title>
+<style>
+  :root { --bg:#0f172a; --card:#1e293b; --ink:#e2e8f0; --dim:#94a3b8; --accent:#fbbf24; --link:#818cf8; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); font-family:"Microsoft JhengHei",system-ui,-apple-system,sans-serif; line-height:1.8; }
+  .wrap { max-width:880px; margin:0 auto; padding:24px 20px 60px; }
+  nav { display:flex; gap:18px; align-items:center; padding:14px 0; border-bottom:1px solid var(--card); margin-bottom:28px; flex-wrap:wrap; }
+  nav a { color:var(--dim); text-decoration:none; font-size:15px; }
+  nav a:hover { color:var(--accent); }
+  nav .brand { color:var(--accent); font-weight:bold; font-size:17px; margin-right:auto; }
+  h1 { color:var(--accent); font-size:30px; margin-bottom:18px; }
+  h2 { color:var(--accent); font-size:22px; margin:26px 0 10px; }
+  p { margin-bottom:14px; }
+  ul { margin:0 0 14px 22px; }
+  li { margin-bottom:6px; }
+  a { color:var(--link); }
+  table { border-collapse:collapse; width:100%; margin-bottom:16px; font-size:15px; }
+  th,td { border:1px solid #334155; padding:8px 12px; text-align:left; }
+  th { background:var(--card); color:var(--accent); }
+  code { background:var(--card); padding:2px 6px; border-radius:5px; font-size:14px; }
+  pre code { display:block; padding:14px; overflow-x:auto; }
+  .meta { color:var(--dim); font-size:14px; margin-bottom:22px; }
+  .card { background:var(--card); border-radius:12px; padding:16px 20px; margin-bottom:12px; }
+  .card b a { color:var(--ink); text-decoration:none; font-size:16px; }
+  .card b a:hover { color:var(--accent); }
+  .card small { color:var(--dim); display:block; margin-top:4px; }
+  .hero { text-align:center; padding:30px 0 10px; }
+  .hero h1 { font-size:34px; }
+  .hero .sub { color:var(--dim); margin-bottom:26px; }
+  .btn { display:inline-block; background:var(--accent); color:#0f172a; font-weight:bold; text-decoration:none;
+         padding:10px 22px; border-radius:10px; margin:0 6px 10px; }
+  .btn.ghost { background:var(--card); color:var(--ink); }
+  footer { margin-top:40px; color:var(--dim); font-size:13px; border-top:1px solid var(--card); padding-top:16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><span class="brand">LLM Wiki</span><a href="index.html">目錄</a><a href="log.html">日誌</a><a href="../topic-llm-wiki-slides/deck.html">教學簡報</a><a href="https://github.com/poopro/llm-wiki">GitHub</a></nav>
+<div class="meta">概念 · 更新 2026-11-16 · 來源：<a href="https://github.com/poopro/llm-wiki/blob/main/raw/01-karpathy-llm-wiki-gist.md">raw/01-karpathy-llm-wiki-gist.md</a></div>
+<h1>三層架構：raw / wiki / schema</h1>
+<p>LLM Wiki 把知識庫分成三層，每一層的「誰可以寫」都不同 <a href="site/entity-karpathy.html">entity-karpathy</a>：</p>
+<table>
+<thead>
+<tr>
+<th>層</th>
+<th>內容</th>
+<th>誰擁有</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>raw/</strong>（原始來源）</td>
+<td>文章、論文、逐字稿、資料檔</td>
+<td><strong>不可修改</strong>，是 source of truth，Agent 只讀不寫</td>
+</tr>
+<tr>
+<td><strong>wiki/</strong>（知識頁）</td>
+<td>摘要、實體頁、概念頁、比較、綜述</td>
+<td>LLM 全權生成與維護：建頁、更新、維護交叉引用、保持一致</td>
+</tr>
+<tr>
+<td><strong>schema</strong>（手冊）</td>
+<td><code>AGENTS.md</code> / <code>CLAUDE.md</code>：結構、慣例、ingest/query/lint 的工作流程</td>
+<td>人與 Agent 共同演化</td>
+</tr>
+</tbody>
+</table>
+<p>schema 是「讓 LLM 成為有紀律的 wiki 維護者，而不是一般聊天機器人」的關鍵：它把讀者、頁面類型、出處格式、矛盾處理原則事先講清楚。本 wiki 的 schema 就是 <a href="https://github.com/poopro/llm-wiki/blob/main/AGENTS.md">AGENTS.md</a>（倉庫根目錄），由「先討論、後生成」的需求訪談產生（見 notes/requirements-discussion.md）。</p>
+<p>整個 wiki 就是一個 git repo，版本歷史、分支、協作都是現成的 <a href="site/entity-karpathy.html">entity-karpathy</a>。</p>
+<p>出處：raw/01-karpathy-llm-wiki-gist.md</p>
+<footer>本頁由 <code>wiki/concept-three-layers.md</code> 自動生成（scripts/build_site.py）· 內容依 AGENTS.md 規則維護</footer>
+</div>
+</body>
+</html>

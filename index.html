@@ -1,11 +1,54 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="refresh" content="0;url=topic-llm-wiki-slides/deck.html">
-<title>LLM Wiki — 教學簡報</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LLM Wiki — 主題知識庫</title>
+<style>
+  :root { --bg:#0f172a; --card:#1e293b; --ink:#e2e8f0; --dim:#94a3b8; --accent:#fbbf24; --link:#818cf8; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); font-family:"Microsoft JhengHei",system-ui,-apple-system,sans-serif; line-height:1.8; }
+  .wrap { max-width:880px; margin:0 auto; padding:24px 20px 60px; }
+  nav { display:flex; gap:18px; align-items:center; padding:14px 0; border-bottom:1px solid var(--card); margin-bottom:28px; flex-wrap:wrap; }
+  nav a { color:var(--dim); text-decoration:none; font-size:15px; }
+  nav a:hover { color:var(--accent); }
+  nav .brand { color:var(--accent); font-weight:bold; font-size:17px; margin-right:auto; }
+  h1 { color:var(--accent); font-size:30px; margin-bottom:18px; }
+  h2 { color:var(--accent); font-size:22px; margin:26px 0 10px; }
+  p { margin-bottom:14px; }
+  ul { margin:0 0 14px 22px; }
+  li { margin-bottom:6px; }
+  a { color:var(--link); }
+  table { border-collapse:collapse; width:100%; margin-bottom:16px; font-size:15px; }
+  th,td { border:1px solid #334155; padding:8px 12px; text-align:left; }
+  th { background:var(--card); color:var(--accent); }
+  code { background:var(--card); padding:2px 6px; border-radius:5px; font-size:14px; }
+  pre code { display:block; padding:14px; overflow-x:auto; }
+  .meta { color:var(--dim); font-size:14px; margin-bottom:22px; }
+  .card { background:var(--card); border-radius:12px; padding:16px 20px; margin-bottom:12px; }
+  .card b a { color:var(--ink); text-decoration:none; font-size:16px; }
+  .card b a:hover { color:var(--accent); }
+  .card small { color:var(--dim); display:block; margin-top:4px; }
+  .hero { text-align:center; padding:30px 0 10px; }
+  .hero h1 { font-size:34px; }
+  .hero .sub { color:var(--dim); margin-bottom:26px; }
+  .btn { display:inline-block; background:var(--accent); color:#0f172a; font-weight:bold; text-decoration:none;
+         padding:10px 22px; border-radius:10px; margin:0 6px 10px; }
+  .btn.ghost { background:var(--card); color:var(--ink); }
+  footer { margin-top:40px; color:var(--dim); font-size:13px; border-top:1px solid var(--card); padding-top:16px; }
+</style>
 </head>
-<body style="background:#0f172a;color:#e2e8f0;font-family:sans-serif;text-align:center;padding-top:40vh">
-<p>前往簡報…若未跳轉，<a href="topic-llm-wiki-slides/deck.html" style="color:#fbbf24">點這裡</a>。</p>
+<body>
+<div class="wrap">
+<div class="hero">
+<h1>LLM Wiki</h1>
+<div class="sub">用 Karpathy 的 LLM Wiki 模式建立的主題知識庫——主題就是「LLM Wiki 模式本身」<br>18 個知識頁 · 6 篇 raw 來源 · 每頁標注出處 · AGENTS.md 規則驅動</div>
+<a class="btn" href="../topic-llm-wiki-slides/deck.html">看教學簡報</a>
+<a class="btn ghost" href="site/overview.html">從綜述開始讀</a>
+<a class="btn ghost" href="https://github.com/poopro/llm-wiki">GitHub Repo</a>
+</div>
+<h2>綜述</h2><div class="card"><b><a href="site/overview.html">LLM Wiki 是什麼？（綜述）</a></b><small>LLM Wiki 是什麼：一句話核心主張 + 全 wiki 導覽</small></div><h2>概念</h2><div class="card"><b><a href="site/concept-compilation.html">核心觀念：知識編譯（Compile Once, Keep Current）</a></b><small>核心觀念：知識編譯一次、持續維護，而非每次查詢重新推導</small></div><div class="card"><b><a href="site/concept-index-log.html">兩個特殊檔案：index.md 與 log.md</a></b><small>index.md 與 log.md：百頁規模內不需要向量資料庫</small></div><div class="card"><b><a href="site/concept-operations.html">三個操作：Ingest、Query、Lint</a></b><small>三個操作：Ingest、Query、Lint 的標準流程</small></div><div class="card"><b><a href="site/concept-three-layers.html">三層架構：raw / wiki / schema</a></b><small>三層架構：raw（不可改）/ wiki（LLM 維護）/ schema（手冊）</small></div><h2>比較</h2><div class="card"><b><a href="site/comparison-vs-rag.html">比較：LLM Wiki vs RAG</a></b><small>LLM Wiki vs RAG：整理時機、累積性、矛盾處理、成本曲線</small></div><h2>實體</h2><div class="card"><b><a href="site/entity-crow.html">實體：CROW llm-wiki-v2（ingest 決策成本研究）</a></b><small>CROW：ingest 決策佔 72% token 的量化研究</small></div><div class="card"><b><a href="site/entity-karpathy.html">實體：Karpathy 的 LLM Wiki gist（原典）</a></b><small>原典：Karpathy 的 gist，與 Memex（1945）的思想連結</small></div><div class="card"><b><a href="site/entity-liangdabiao.html">實體：liangdabiao/llm-wiki（多來源 ingest ＋ 網站發布）</a></b><small>多來源 ingest ＋ Quartz 靜態網站發布</small></div><div class="card"><b><a href="site/entity-mindbase.html">實體：MindBase（把 wiki 維護程式化）</a></b><small>MindBase：lint 從 AI 判斷改成程式計算</small></div><div class="card"><b><a href="site/entity-student-llm-wiki.html">實體：Student LLM Wiki（學生課程知識庫）</a></b><small>學生課程知識庫：簡報進、wiki 出</small></div><h2>綜合分析</h2><div class="card"><b><a href="site/synthesis-failures.html">綜合分析：常見失敗模式與社群對策</a></b><small>七種常見失敗模式與社群對策（近重複、斷連結、靜默覆蓋…）</small></div><h2>來源摘要</h2><div class="card"><b><a href="site/source-01-karpathy.html">來源 01：Karpathy — LLM Wiki（gist 原文）</a></b><small>Karpathy gist 原文（2026-04-04）</small></div><div class="card"><b><a href="site/source-02-student.html">來源 02：Student LLM Wiki（課程知識庫）</a></b><small>student-llm-wiki（課程情境）</small></div><div class="card"><b><a href="site/source-03-mindbase.html">來源 03：MindBase（lint 程式化）</a></b><small>mindbase-llm-wiki（lint 程式化）</small></div><div class="card"><b><a href="site/source-04-liangdabiao.html">來源 04：liangdabiao/llm-wiki（多來源 ＋ Quartz 發布）</a></b><small>liangdabiao/llm-wiki（多來源、Quartz）</small></div><div class="card"><b><a href="site/source-05-crow.html">來源 05：CROW llm-wiki-v2（決策成本研究）</a></b><small>crow llm-wiki-v2（決策成本研究）</small></div><div class="card"><b><a href="site/source-06-awesome.html">來源 06：Awesome LLM Wiki（生態清單）</a></b><small>awesome-llm-wiki（生態清單）</small></div><h2>過程紀錄</h2><div class="card"><b><a href="site/log.html">Log — 操作日誌（append-only）</a></b><small>ingest / lint / query / slides 的完整操作日誌</small></div>
+<footer>頁面由 <code>scripts/build_site.py</code> 從 <code>wiki/*.md</code> 自動生成 · 維護規則見 <a href="https://github.com/poopro/llm-wiki/blob/main/AGENTS.md">AGENTS.md</a> · NYCU 114481030 陳宏威</footer>
+</div>
 </body>
 </html>

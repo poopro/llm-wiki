@@ -61,3 +61,9 @@
 - 忠實度審查：三個關鍵數字（72%、62%→89%、10–15 頁）對回 raw 原文，限制語保留。
 - 全部關卡通過，依停止條件停止。紀錄見 topic-llm-wiki-slides/report.md。
 
+## [2026-11-18] build | wiki → 靜態網站（scripts/build_site.py）
+
+- 新增 scripts/build_site.py：wiki/ 每頁渲染成 site/<slug>.html，根目錄 index.html 變成總覽目錄（分類卡片 + 簡報連結）。
+- AGENTS.md 新增「網站生成」章節：生成物不可手改；新增頁面的閉環 = ingest → lint → build_site → commit → Pages 自動上線。
+- 驗證：site/ 共 20 頁、無殘留 [[wikilink]]、站內連結轉換正確。
+

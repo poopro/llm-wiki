@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>兩個特殊檔案：index.md 與 log.md — LLM Wiki</title>
+<style>
+  :root { --bg:#0f172a; --card:#1e293b; --ink:#e2e8f0; --dim:#94a3b8; --accent:#fbbf24; --link:#818cf8; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); font-family:"Microsoft JhengHei",system-ui,-apple-system,sans-serif; line-height:1.8; }
+  .wrap { max-width:880px; margin:0 auto; padding:24px 20px 60px; }
+  nav { display:flex; gap:18px; align-items:center; padding:14px 0; border-bottom:1px solid var(--card); margin-bottom:28px; flex-wrap:wrap; }
+  nav a { color:var(--dim); text-decoration:none; font-size:15px; }
+  nav a:hover { color:var(--accent); }
+  nav .brand { color:var(--accent); font-weight:bold; font-size:17px; margin-right:auto; }
+  h1 { color:var(--accent); font-size:30px; margin-bottom:18px; }
+  h2 { color:var(--accent); font-size:22px; margin:26px 0 10px; }
+  p { margin-bottom:14px; }
+  ul { margin:0 0 14px 22px; }
+  li { margin-bottom:6px; }
+  a { color:var(--link); }
+  table { border-collapse:collapse; width:100%; margin-bottom:16px; font-size:15px; }
+  th,td { border:1px solid #334155; padding:8px 12px; text-align:left; }
+  th { background:var(--card); color:var(--accent); }
+  code { background:var(--card); padding:2px 6px; border-radius:5px; font-size:14px; }
+  pre code { display:block; padding:14px; overflow-x:auto; }
+  .meta { color:var(--dim); font-size:14px; margin-bottom:22px; }
+  .card { background:var(--card); border-radius:12px; padding:16px 20px; margin-bottom:12px; }
+  .card b a { color:var(--ink); text-decoration:none; font-size:16px; }
+  .card b a:hover { color:var(--accent); }
+  .card small { color:var(--dim); display:block; margin-top:4px; }
+  .hero { text-align:center; padding:30px 0 10px; }
+  .hero h1 { font-size:34px; }
+  .hero .sub { color:var(--dim); margin-bottom:26px; }
+  .btn { display:inline-block; background:var(--accent); color:#0f172a; font-weight:bold; text-decoration:none;
+         padding:10px 22px; border-radius:10px; margin:0 6px 10px; }
+  .btn.ghost { background:var(--card); color:var(--ink); }
+  footer { margin-top:40px; color:var(--dim); font-size:13px; border-top:1px solid var(--card); padding-top:16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><span class="brand">LLM Wiki</span><a href="index.html">目錄</a><a href="log.html">日誌</a><a href="../topic-llm-wiki-slides/deck.html">教學簡報</a><a href="https://github.com/poopro/llm-wiki">GitHub</a></nav>
+<div class="meta">概念 · 更新 2026-11-16 · 來源：<a href="https://github.com/poopro/llm-wiki/blob/main/raw/01-karpathy-llm-wiki-gist.md">raw/01-karpathy-llm-wiki-gist.md</a>、<a href="https://github.com/poopro/llm-wiki/blob/main/raw/03-mindbase-llm-wiki.md">raw/03-mindbase-llm-wiki.md</a></div>
+<h1>兩個特殊檔案：index.md 與 log.md</h1>
+<p>Karpathy 用兩個檔案讓 wiki 隨著規模成長還能被導航 <a href="site/entity-karpathy.html">entity-karpathy</a>：</p>
+<h2>index.md（內容導向）</h2>
+<p>整個 wiki 的目錄：每頁一條連結＋一句話摘要，可加日期、來源數等 metadata，依分類（實體、概念、來源…）組織。每次 ingest 都要更新。<strong>查詢時 Agent 先讀 index 找相關頁，再鑽進頁面</strong>——在約百份來源、數百頁的規模下效果出奇地好，不需要 embedding 向量資料庫。</p>
+<h2>log.md（時間導向）</h2>
+<p>append-only 的操作紀錄：ingest、query、lint 都記一筆。實用技巧是讓每條開頭格式固定（例如 <code>## [2026-04-02] ingest | 文章標題</code>），就能用 unix 工具解析：<code>grep "^## \[" log.md | tail -5</code> 看最近五筆。log 提供知識庫的演化時間線，也讓 Agent 知道最近做過什麼。</p>
+<p>MindBase 把這個觀念再往前推一步：每次查詢都追加到 <code>logs/&lt;date&gt;.md</code>，記錄「讀了哪幾頁 vs 實際引用了哪幾頁」——如果「wiki 裡明明有、模型卻沒用到」，事後可以用 grep 找出來 <a href="site/entity-mindbase.html">entity-mindbase</a>。</p>
+<p>出處：raw/01-karpathy-llm-wiki-gist.md、raw/03-mindbase-llm-wiki.md</p>
+<footer>本頁由 <code>wiki/concept-index-log.md</code> 自動生成（scripts/build_site.py）· 內容依 AGENTS.md 規則維護</footer>
+</div>
+</body>
+</html>
